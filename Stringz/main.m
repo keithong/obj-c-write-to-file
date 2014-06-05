@@ -14,16 +14,28 @@ int main(int argc, const char * argv[])
     @autoreleasepool {
         
         NSMutableString *str = [[NSMutableString alloc]init];
-        for (int i = 1; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             [str appendString:@"Hello, Keith!\n"];
         }
         
-        [str writeToFile:@"/tmp/hello.txt"
-              atomically:YES
-                encoding:NSUTF8StringEncoding
-                   error:NULL];
+        //Declare a pointer to an NSError object, but don't instantiate it.
+        //The NSError instance will only be created if there is, in fact, an error.
+        NSError *error = nil;
         
-        NSLog(@"Done writing /tmp/hello.txt");
+        //Pass the NSError pointer by reference to the NSString method
+        BOOL success = [str writeToFile:@"/tmp/hello.txt"
+                             atomically:YES
+                               encoding:NSUTF8StringEncoding
+                                  error:&error];
+        
+        //Test the returned BOOL, and query the NSError if the write failed
+        if (success) {
+            NSLog(@"Done writing /tmp/hello.txt");
+        } else {
+            NSLog(@"Writing /tmp/hello.txt failed: %@", [error localizedDescription]);
+        }
+
+        
         
     }
     return 0;
