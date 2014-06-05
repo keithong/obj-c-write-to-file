@@ -12,7 +12,11 @@ int main(int argc, const char * argv[])
 {
 
     @autoreleasepool {
-        
+        /*
+         -----------------------------------------
+         Commenting this section in case of reuse
+         -----------------------------------------
+         
         NSMutableString *str = [[NSMutableString alloc]init];
         for (int i = 0; i < 10; i++) {
             [str appendString:@"Hello, Keith!\n"];
@@ -34,7 +38,19 @@ int main(int argc, const char * argv[])
         } else {
             NSLog(@"Writing /tmp/hello.txt failed: %@", [error localizedDescription]);
         }
-
+         
+         -------------------------------------------
+        */
+        
+        NSError *error = nil;
+        NSString *str = [[NSString alloc] initWithContentsOfFile:@"/tmp/hello.txt" encoding:NSASCIIStringEncoding error:&error];
+        
+        if (!str) {
+            NSLog (@"read failed: %@", [error localizedDescription]);
+        } else {
+            NSLog(@"hello.txt looks like this: %@", str);
+        }
+        
         
         
     }
