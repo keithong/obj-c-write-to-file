@@ -43,7 +43,10 @@ int main(int argc, const char * argv[])
         */
         
         NSError *error = nil;
-        NSString *str = [[NSString alloc] initWithContentsOfFile:@"/tmp/hello.txt" encoding:NSASCIIStringEncoding error:&error];
+        NSString *str = [[NSString alloc]
+                         initWithContentsOfFile:@"/tmp/hello.txt"
+                         encoding:NSASCIIStringEncoding
+                         error:&error];
         
         if (!str) {
             NSLog (@"read failed: %@", [error localizedDescription]);
